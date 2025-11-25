@@ -10,6 +10,9 @@ import sys
 
 import requests
 
+# GEMINI_API_KEY = "AIzaSyAklw1RZICfoM6So8mebKRQE0j13k3YfeA"
+
+
 GEMINI_API_KEY = "AIzaSyAklw1RZICfoM6So8mebKRQE0j13k3YfeA"
 MODEL = "gemini-2.0-flash-001"
 ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
