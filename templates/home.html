@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Local Job Market & Skill Intelligence</p>
+      <h1>Understand the skills employers need right now.</h1>
+      <p class="lead">
+        Upload your resume to discover strengths, gaps, and personalized learning recommendations powered by local job-market data and AI insights.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="{{ url_for('upload') }}">Analyze My Resume</a>
+        <a class="btn ghost" href="#dashboard">View Dashboard</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>Skill Coverage Snapshot</h3>
+      <ul>
+        {% for domain, skills in skill_library.items() %}
+          <li>
+            <span>{{ domain }}</span>
+            <span class="pill">{{ skills|length }} key skills</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section id="dashboard" class="panel">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Live market intelligence</p>
+        <h2>Power BI job-market dashboard</h2>
+        <p>
+          Track regional demand, top industries, and salary insights directly inside the platform. Replace the sample link with your own Power BI share link when ready.
+        </p>
+      </div>
+    </div>
+    <div class="dashboard-wrapper">
+      <iframe
+        title="Power BI Dashboard"
+        src="https://app.powerbi.com/view?r=eyJrIjoiZTk0YjZiNWQtMWYzZi00NmIxLWFhNjAtZWViMjNhNDIyNjQ1IiwidCI6IjM0ZTJhMjNkLTdhY2UtNDk1Ny04MGNmLWQ2MTNlZjYxNzA0MiIsImMiOjN9"
+        frameborder="0"
+        allowfullscreen="true"
+      ></iframe>
+    </div>
+  </section>
+
+  <section class="panel grid">
+    <div>
+      <p class="eyebrow">Why this platform</p>
+      <h3>Personalized AI insights</h3>
+      <p>
+        We map your resume against local employer demand, highlight missing skills, and suggest the most impactful actions to stay competitive.
+      </p>
+    </div>
+    <div>
+      <p class="eyebrow">Skill intelligence</p>
+      <h3>Curated skill library</h3>
+      <p>
+        The skill buckets below power the initial analysis. Expand or tailor them to match your target roles and markets.
+      </p>
+      <ul class="skill-grid">
+        {% for domain, skills in skill_library.items() %}
+          <li>
+            <strong>{{ domain }}</strong>
+            <p>{{ skills|join(', ') }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{% endblock %}

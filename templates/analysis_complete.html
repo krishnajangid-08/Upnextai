@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UpNext AI | Analysis Complete</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='dark-theme.css') }}" />
+</head>
+
+<body class="upload-body analysis-body">
+  <div class="upload-bg"></div>
+  <div class="upload-particles"></div>
+  <div class="upload-particles delay"></div>
+
+  <header class="upload-hero fade-in">
+    <button type="button" class="upload-logo" data-trigger-reload data-reload-target="{{ url_for('home') }}"
+      aria-label="UpNext AI">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="UpNext AI logo" />
+    </button>
+    <div class="upload-title-group">
+      <h1>UpNext AI</h1>
+      <p>AI Skill Analyzer</p>
+    </div>
+  </header>
+
+  <main class="analysis-main fade-up">
+    <section class="upload-panel analysis-card">
+      <div class="analysis-icon">
+        <i class="fa-solid fa-check-circle"></i>
+      </div>
+      <h1 class="gradient-heading">Resume Analyzed Successfully</h1>
+      <p class="analysis-subtext">
+        Your resume has been analyzed by UpNext AI.
+        <br />
+        Click below to view your insights.
+      </p>
+
+      {% if error %}
+      <div class="analysis-alert error">
+        <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+      </div>
+      {% elif analysis_ok == False %}
+      <div class="analysis-alert pending">
+        <i class="fa-solid fa-hourglass-half"></i> AI is still finalizing insights. You can still view results now.
+      </div>
+      {% else %}
+      <div class="analysis-alert success">
+        <i class="fa-solid fa-circle-check"></i> Analysis complete. Ready to view results.
+      </div>
+      {% endif %}
+
+      <div class="analysis-actions">
+        <a class="primary-btn prominent" href="{{ url_for('results') }}">View Results</a>
+        <a class="ghost-btn" href="{{ url_for('upload') }}">Analyze Another Resume</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="upload-footer fade-in">© 2025 UpNext AI — Empowering careers through intelligent insights.</footer>
+  <button class="theme-toggle floating-toggle" id="themeToggle" aria-label="Toggle dark or light theme">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+
+  <script>
+    // Theme functionality
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+    const themeIcon = themeToggle.querySelector("i");
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem("theme") || "light";
+    if (currentTheme === "dark") {
+      body.classList.add("dark-theme");
+      themeIcon.classList.remove("fa-moon");
+      themeIcon.classList.add("fa-sun");
+    }
+
+    // Toggle theme on button click
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark-theme");
+
+      if (body.classList.contains("dark-theme")) {
+        themeIcon.classList.remove("fa-moon");
+        themeIcon.classList.add("fa-sun");
+        localStorage.setItem("theme", "dark");
+      } else {
+        themeIcon.classList.remove("fa-sun");
+        themeIcon.classList.add("fa-moon");
+        localStorage.setItem("theme", "light");
+      }
+    });
+  </script>
+  <script src="{{ url_for('static', filename='reload.js') }}"></script>
+</body>
+
+</html>

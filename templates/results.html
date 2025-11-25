@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="panel">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Results for {{ filename }}</p>
+        <h2>Skill coverage highlights</h2>
+        <p>A quick snapshot of strengths, gaps, and recommended next steps.</p>
+      </div>
+      <a class="btn ghost" href="{{ url_for('upload') }}">Analyze another resume</a>
+    </div>
+    <div class="result-grid">
+      <div class="result-card">
+        <h3>Detected skills</h3>
+        {% if analysis.found_skills %}
+          <ul>
+            {% for skill in analysis.found_skills %}
+              <li class="pill">{{ skill }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No skills detected. Try adding a dedicated skills section to your resume.</p>
+        {% endif %}
+      </div>
+      <div class="result-card">
+        <h3>Skill gaps</h3>
+        {% if analysis.missing_skills %}
+          <ul>
+            {% for skill in analysis.missing_skills[:10] %}
+              <li>{{ skill }}</li>
+            {% endfor %}
+          </ul>
+          {% if analysis.missing_skills|length > 10 %}
+            <p class="muted">+ {{ analysis.missing_skills|length - 10 }} more gaps detected</p>
+          {% endif %}
+        {% else %}
+          <p>Great coverage across current libraries!</p>
+        {% endif %}
+      </div>
+      <div class="result-card">
+        <h3>Recommendations</h3>
+        <ol>
+          {% for recommendation in analysis.recommendations %}
+            <li>{{ recommendation }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+  </section>
+{% endblock %}

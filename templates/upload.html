@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Resume | UpNext AI</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='dark-theme.css') }}" />
+</head>
+
+<body class="upload-body">
+  <div class="upload-bg"></div>
+  <div class="upload-particles"></div>
+  <div class="upload-particles delay"></div>
+
+  <div class="analyze-overlay" id="analyzeOverlay">
+    <div class="overlay-content">
+      <p class="overlay-title">Analyzing Resume with <span>UpNext AI</span>…</p>
+      <div class="overlay-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <header class="upload-hero fade-in">
+    <a class="brand" href="{{ url_for('home') }}" data-trigger-reload>UpNext AI</a>
+    <div class="upload-title-group">
+      <h1>UpNext AI</h1>
+      <p>AI Skill Analyzer</p>
+    </div>
+  </header>
+  <div class="header-divider fade-in"></div>
+
+  <main class="upload-stage">
+    <section class="upload-panel fade-up">
+      <i class="fa-solid fa-cloud-upload-alt upload-icon"></i>
+      <h2>Upload Your Resume</h2>
+      <p class="panel-subtext">Let AI analyze your skills and detect gaps for better career insights.</p>
+
+      {% if error %}
+      <div class="upload-error">{{ error }}</div>
+      {% endif %}
+
+      <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="upload-form"
+        id="uploadForm">
+        <input type="file" id="resume" name="resume" accept="application/pdf" hidden required />
+        <label for="resume" class="upload-dropzone">
+          <div class="beam"></div>
+          <div class="corner corner-1"></div>
+          <div class="corner corner-2"></div>
+          <div class="corner corner-3"></div>
+          <div class="corner corner-4"></div>
+          <i class="fa-solid fa-cloud-upload-alt"></i>
+          <strong>Drag &amp; drop your resume here</strong>
+          <span>or click to browse .pdf files</span>
+        </label>
+        <p class="upload-note">Supported format: PDF | Max size: 5MB</p>
+        <p class="file-status" id="fileStatus">No file chosen.</p>
+        <button type="submit" class="upload-btn" id="analyzeBtn">
+          <span>Start Analyze</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <div class="footer-divider fade-in"></div>
+  <footer class="upload-footer fade-in">© 2025 UpNext AI — Empowering careers through intelligent insights.</footer>
+
+  <button class="theme-toggle floating-toggle" id="themeToggle" aria-label="Toggle dark or light theme">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+
+  <script src="{{ url_for('static', filename='reload.js') }}"></script>
+  <script>
+    // Theme functionality
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+    const themeIcon = themeToggle.querySelector("i");
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem("theme") || "light";
+    if (currentTheme === "dark") {
+      body.classList.add("dark-theme");
+      themeIcon.classList.remove("fa-moon");
+      themeIcon.classList.add("fa-sun");
+    }
+
+    // Toggle theme on button click
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark-theme");
+
+      if (body.classList.contains("dark-theme")) {
+        themeIcon.classList.remove("fa-moon");
+        themeIcon.classList.add("fa-sun");
+        localStorage.setItem("theme", "dark");
+      } else {
+        themeIcon.classList.remove("fa-sun");
+        themeIcon.classList.add("fa-moon");
+        localStorage.setItem("theme", "light");
+      }
+    });
+
+    const fileInput = document.getElementById("resume");
+    const fileStatus = document.getElementById("fileStatus");
+    const uploadForm = document.getElementById("uploadForm");
+    const overlay = document.getElementById("analyzeOverlay");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files && fileInput.files.length) {
+        fileStatus.innerHTML = `✅ File Selected: <span>${fileInput.files[0].name}</span>`;
+        fileStatus.classList.add("has-file");
+      } else {
+        fileStatus.textContent = "No file chosen.";
+        fileStatus.classList.remove("has-file");
+      }
+    });
+
+    const showOverlay = () => {
+      overlay.classList.add("visible");
+      requestAnimationFrame(() => overlay.classList.add("fade"));
+    };
+
+    uploadForm.addEventListener("submit", () => {
+      if (overlay) showOverlay();
+    });
+
+    analyzeBtn.addEventListener("click", () => {
+      if (uploadForm.reportValidity()) showOverlay();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UpNext AI | Resume Insights</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='dark-theme.css') }}" />
+</head>
+
+<body class="result-body">
+  <div class="result-atmosphere">
+    <div class="result-glow"></div>
+    <div class="result-glow delay"></div>
+    <div class="result-dots"></div>
+  </div>
+
+  <header class="result-header scroll-animate">
+    <a href="{{ url_for('home') }}" class="brand" data-trigger-reload>UpNext AI</a>
+    <a class="ghost-btn" href="{{ url_for('upload') }}">Upload Again</a>
+  </header>
+
+  <div class="result-divider"></div>
+
+  <main class="result-wrapper">
+    <section class="result-card scroll-animate">
+      <div class="result-status">
+        <div>
+          <p class="eyebrow">Intelligence Snapshot</p>
+          <h1>Resume Insights Ready</h1>
+          <p>Benchmarking your strengths, opportunities, and curated job paths in real time.</p>
+        </div>
+        {% if analysis_pending %}
+        <span class="status-pill pending"><i class="fa-solid fa-rotate"></i> {{ success_message }}</span>
+        {% else %}
+        <span class="status-pill success"><i class="fa-solid fa-check"></i> {{ success_message }}</span>
+        {% endif %}
+      </div>
+
+      <div class="result-section overview scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-book-open"></i> Resume Overview</h2>
+          <span class="spark"></span>
+        </div>
+        <pre class="overview-text">{{ ollama_output or analysis_summary }}</pre>
+      </div>
+
+      <div class="result-section experience scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-user-tie"></i> Experience Analysis</h2>
+        </div>
+        <p class="experience-text">{{ experience or "Experience insights will appear once AI review completes." }}</p>
+      </div>
+
+      <div class="result-section experience-details scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-briefcase"></i> Work Experience Highlights</h2>
+        </div>
+        <div class="experience-detail-grid">
+          {% for item in experience_details %}
+          <article class="experience-detail-card card-hover">
+            <header>
+              <h3>{{ item.role or "Role" }}</h3>
+              <span>{{ item.timeline or "Timeline N/A" }}</span>
+            </header>
+            <p class="org">{{ item.organization or "Organization not specified" }}</p>
+            <p class="impact">{{ item.impact or "Add quantifiable achievements for this role." }}</p>
+          </article>
+          {% else %}
+          <p>Add more resume detail and metrics to unlock role-specific breakdowns.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="result-section roles scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-compass"></i> Recommended Roles</h2>
+        </div>
+        <div class="roles-grid">
+          {% for role in recommended_roles %}
+          <article class="role-card card-hover">
+            <div class="role-head">
+              <h3>{{ role.role }}</h3>
+              <span class="confidence">{{ role.confidence }}%</span>
+            </div>
+            <div class="confidence-bar">
+              <span style="width: {{ role.confidence }}%"></span>
+            </div>
+          </article>
+          {% else %}
+          <p>No role suggestions available.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="result-section strengths-weaknesses scroll-animate">
+        <div class="split-columns">
+          <div>
+            <div class="section-header">
+              <h2><i class="fa-solid fa-fire"></i> Strengths</h2>
+            </div>
+            <ul class="highlight-list strengths">
+              {% for strength in strengths %}
+              <li>{{ strength }}</li>
+              {% else %}
+              <li>Provide more detail to reveal strengths.</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div>
+            <div class="section-header">
+              <h2><i class="fa-solid fa-triangle-exclamation"></i> Growth Areas</h2>
+            </div>
+            <ul class="highlight-list weaknesses">
+              {% for weak in weaknesses %}
+              <li>{{ weak }}</li>
+              {% else %}
+              <li>Upload a fuller resume to surface improvement areas.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-section improvements scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Resume Improvements</h2>
+        </div>
+        <ul class="improvement-list">
+          {% for tip in improvements %}
+          <li>{{ tip }}</li>
+          {% else %}
+          <li>Add more role-specific detail for tailored guidance.</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="result-section learning scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-graduation-cap"></i> Learning Recommendations</h2>
+        </div>
+        <div class="learning-pills">
+          {% for learn in learning_recommendations %}
+          <span>{{ learn }}</span>
+          {% else %}
+          <span>Submit updated resume for curated learning paths.</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="result-section projects scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-diagram-project"></i> Highlighted Projects</h2>
+        </div>
+        <div class="projects-grid">
+          {% for project in projects %}
+          <article class="project-card card-hover">
+            <h3>{{ project.title or "Project" }}</h3>
+            {% if project.tools %}
+            <p class="project-tools">{{ project.tools | join(", ") }}</p>
+            {% endif %}
+            <p>{{ project.description }}</p>
+          </article>
+          {% else %}
+          <p>No explicit projects were detected.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="result-section personality scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-heart"></i> Personality Insights</h2>
+        </div>
+        <p class="personality-text">{{ personality or "Share more narrative to unlock personality insights." }}</p>
+      </div>
+
+      <div class="result-section roadmap scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-route"></i> Career Roadmap</h2>
+        </div>
+        <ol class="roadmap-list">
+          {% for step in career_roadmap %}
+          <li>{{ step }}</li>
+          {% else %}
+          <li>Upload a detailed resume to generate a roadmap.</li>
+          {% endfor %}
+        </ol>
+      </div>
+
+      <div class="result-section skills scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-circle-check"></i> Extracted Skills</h2>
+        </div>
+        <div class="skill-pills">
+          {% for skill in skills %}
+          <span class="skill-pill">{{ skill }}</span>
+          {% else %}
+          <span class="skill-pill">Waiting for AI analysis…</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if missing %}
+      <div class="result-section skills scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-sparkles"></i> Suggested Skills to Learn</h2>
+        </div>
+        <div class="skill-pills suggested">
+          {% for skill in missing %}
+          <span class="skill-pill alt" title="Add to your learning plan">{{ skill }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="result-section chart-section scroll-animate">
+        <div class="section-header center">
+          <h2 class="gradient-title">Skill Intelligence Overview</h2>
+          <p>AI Analysis of Your Resume’s Skill Strength</p>
+        </div>
+        <div class="chart-card">
+          <canvas id="skillChart" aria-label="Skill strength visualization"></canvas>
+          <div class="chart-glow"></div>
+        </div>
+        <div class="chart-legend">
+          <span class="legend-dot primary"></span> Detected Skill Strength
+          <span class="legend-dot secondary"></span> Suggested Skill Improvement
+        </div>
+        <div class="insight-cards">
+          <article class="insight-card card-hover">
+            <i class="fa-solid fa-bolt"></i>
+            <div>
+              <p>Top Skill</p>
+              <strong>{{ skills[0] if skills else 'N/A' }}</strong>
+            </div>
+          </article>
+          <article class="insight-card card-hover">
+            <i class="fa-solid fa-chart-line"></i>
+            <div>
+              <p>Suggested to Improve</p>
+              <strong>{{ missing[0] if missing else 'N/A' }}</strong>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="result-section jobs scroll-animate">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-briefcase"></i> Matching Job Opportunities</h2>
+        </div>
+        <div class="jobs-grid">
+          {% for job in jobs %}
+          <article class="job-card card-hover">
+            <div>
+              <p class="job-company">{{ job.company }}</p>
+              <h3>{{ job.title }}</h3>
+              <p class="job-location"><i class="fa-solid fa-location-dot"></i> {{ job.location }}</p>
+            </div>
+            <a href="{{ job.link }}" class="primary-btn hollow" target="_blank" rel="noopener">Apply Now</a>
+          </article>
+          {% else %}
+          <p>No job recommendations yet. Upload another resume to unlock personalized matches.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="result-section cta scroll-animate">
+        <div class="section-header center">
+          <h2><i class="fa-solid fa-rocket"></i> Continue Your Growth Journey</h2>
+          <p>Want to explore more personalized insights?</p>
+        </div>
+        <div class="cta-actions">
+          <a href="{{ url_for('upload') }}" class="primary-btn prominent">Upload Another Resume</a>
+          <a href="{{ url_for('home') }}" class="ghost-btn">Back to Home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="result-footer scroll-animate">
+    © 2025 UpNext AI — Empowering careers through intelligence.
+  </footer>
+
+  <button class="theme-toggle floating-toggle" id="themeToggle" aria-label="Toggle dark or light theme">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='reload.js') }}"></script>
+  <script>
+    // Theme functionality
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+    const themeIcon = themeToggle.querySelector("i");
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem("theme") || "light";
+    if (currentTheme === "dark") {
+      body.classList.add("dark-theme");
+      themeIcon.classList.remove("fa-moon");
+      themeIcon.classList.add("fa-sun");
+    }
+
+    // Toggle theme on button click
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark-theme");
+
+      if (body.classList.contains("dark-theme")) {
+        themeIcon.classList.remove("fa-moon");
+        themeIcon.classList.add("fa-sun");
+        localStorage.setItem("theme", "dark");
+      } else {
+        themeIcon.classList.remove("fa-sun");
+        themeIcon.classList.add("fa-moon");
+        localStorage.setItem("theme", "light");
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = document.querySelectorAll(".scroll-animate");
+
+      if ("IntersectionObserver" in window) {
+        const obs = new IntersectionObserver(
+          entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          { threshold: 0.2 }
+        );
+
+        items.forEach(el => {
+          obs.observe(el);
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.9) {
+            el.classList.add("visible");
+          }
+        });
+
+        requestAnimationFrame(() => document.body.classList.add("animate-ready"));
+      } else {
+        items.forEach(el => el.classList.add("visible"));
+        document.body.classList.add("animate-ready");
+      }
+    });
+
+    const skillsAnalysis = {{ skills_analysis| tojson | safe }};
+    const skillLabels = skillsAnalysis.length ? skillsAnalysis.map(s => s.name) : {{ skills| tojson | safe }};
+    const skillScores = skillsAnalysis.length ? skillsAnalysis.map(s => s.score) : skillLabels.map(() => Math.floor(Math.random() * 40) + 60);
+
+    const ctx = document.getElementById("skillChart");
+    if (ctx && window.Chart) {
+      const gradient = ctx.getContext("2d").createLinearGradient(0, 0, 600, 0);
+      gradient.addColorStop(0, "rgba(30,136,229,0.85)");
+      gradient.addColorStop(1, "rgba(66,165,245,0.85)");
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: skillLabels.length ? skillLabels : ["Skills pending"],
+          datasets: [
+            {
+              label: "Skill Strength (Predicted)",
+              data: skillScores.length ? skillScores : [50],
+              backgroundColor: gradient,
+              borderRadius: 10,
+              borderSkipped: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          indexAxis: "y",
+          scales: {
+            x: {
+              ticks: { color: "#2b3a55" },
+              grid: { color: "rgba(0,0,0,0.05)" },
+            },
+            y: {
+              ticks: { color: "#0b1630", font: { size: 14, family: "Poppins" } },
+              grid: { display: false },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: "#1e88e5",
+              titleColor: "#fff",
+              bodyColor: "#fff",
+              borderColor: "#42a5f5",
+              borderWidth: 1,
+            },
+          },
+          animation: {
+            duration: 1200,
+            easing: "easeOutBounce",
+          },
+        },
+      });
+    }
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("loaded");
+    });
+  </script>
+</body>
+
+</html>

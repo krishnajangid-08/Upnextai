@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UpNext AI | Skill Intelligence Platform</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='dark-theme.css') }}" />
+</head>
+
+<body>
+  <div class="background-lines"></div>
+  <header class="navbar">
+    <div class="nav-container">
+      <!-- Text-only brand -->
+      <a href="{{ url_for('home') }}" class="brand">UpNext AI</a>
+
+      <!-- Navigation links -->
+      <nav class="nav-links" id="navLinks">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="#about">About</a>
+        <a href="#why">Why It Matters</a>
+        <a href="#workflow">How It Works</a>
+        <a href="#insights">Insights</a>
+      </nav>
+
+      <!-- Theme toggle button -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark or light theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <!-- Hamburger for mobile -->
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="hero" class="hero section parallax-section scroll-animate" data-parallax-speed="0.25">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow">AI-Based Local Job Market & Skill Intelligence Platform</p>
+          <h1 class="hero-title">UpNext AI</h1>
+          <p class="hero-subtitle">Transforming job data into skill intelligence through AI-driven analytics.</p>
+          <div class="hero-actions">
+            <a class="primary-btn prominent" href="{{ url_for('upload') }}">Analyze Resume</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80"
+            alt="Abstract AI visualization" />
+          <div class="hero-orb orb-one"></div>
+          <div class="hero-orb orb-two"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision -->
+    <section id="vision" class="section fade section-gradient parallax-section scroll-animate"
+      data-parallax-speed="0.06">
+      <div class="container split-grid">
+        <div class="split-text">
+          <p class="eyebrow">Our Vision</p>
+          <h2>Empowering the future of work through AI-driven skill intelligence.</h2>
+          <p>
+            UpNext AI bridges the gap between education, skills, and employability by decoding real hiring signals in
+            real
+            time. We translate millions of job listings into precise guidance so people, schools, and companies invest
+            in the
+            capabilities that matter most.
+          </p>
+          <p class="vision-note">
+            Every week our adaptive career graph refreshes with local market telemetry, ensuring insights feel current,
+            trustworthy, and actionable.
+          </p>
+        </div>
+        <div class="split-media">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80"
+            alt="AI vision illustration" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section id="use-cases" class="section fade scroll-animate">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Who Can Benefit</h2>
+          <p>UpNext AI supports every stakeholder building the workforce of tomorrow.</p>
+        </div>
+        <div class="usecase-grid">
+          <article class="usecase-card card-hover">
+            <div class="usecase-icon">
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <h3>Students</h3>
+            <p>Align coursework and certifications with emerging careers.</p>
+          </article>
+          <article class="usecase-card card-hover">
+            <div class="usecase-icon">
+              <i class="fa-solid fa-briefcase"></i>
+            </div>
+            <h3>Professionals</h3>
+            <p>Benchmark resumes, close skill gaps, and plan learning sprints.</p>
+          </article>
+          <article class="usecase-card card-hover">
+            <div class="usecase-icon">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+            <h3>Institutions</h3>
+            <p>Design programs that reflect live employer expectations.</p>
+          </article>
+          <article class="usecase-card card-hover">
+            <div class="usecase-icon">
+              <i class="fa-solid fa-handshake"></i>
+            </div>
+            <h3>Recruiters</h3>
+            <p>Decode candidate fit and accelerate shortlisting with AI insights.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Flow -->
+    <section id="ai-flow" class="section fade section-gradient parallax-section scroll-animate"
+      data-parallax-speed="0.08">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Our Intelligent Workflow</h2>
+          <p>Data, NLP, and visualization combine to deliver trustworthy intelligence.</p>
+        </div>
+        <div class="ai-timeline">
+          <article class="timeline-item card-hover">
+            <div class="timeline-badge">
+              <span>01</span>
+              <i class="fa-solid fa-cloud-arrow-down"></i>
+            </div>
+            <div class="timeline-content">
+              <p class="timeline-phase">Phase 01</p>
+              <h4>Data Collection</h4>
+              <p>Aggregates localized job feeds, compensation datasets, and resume repositories.</p>
+            </div>
+          </article>
+          <article class="timeline-item card-hover">
+            <div class="timeline-badge">
+              <span>02</span>
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div class="timeline-content">
+              <p class="timeline-phase">Phase 02</p>
+              <h4>Skill Extraction (NLP)</h4>
+              <p>spaCy pipelines normalize titles, extract skills, and group demand signals.</p>
+            </div>
+          </article>
+          <article class="timeline-item card-hover">
+            <div class="timeline-badge">
+              <span>03</span>
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div class="timeline-content">
+              <p class="timeline-phase">Phase 03</p>
+              <h4>Trend Analysis (ML)</h4>
+              <p>Machine learning layers benchmark roles, detect gaps, and forecast surges.</p>
+            </div>
+          </article>
+          <article class="timeline-item card-hover">
+            <div class="timeline-badge">
+              <span>04</span>
+              <i class="fa-solid fa-display"></i>
+            </div>
+            <div class="timeline-content">
+              <p class="timeline-phase">Phase 04</p>
+              <h4>Insights &amp; Visualization</h4>
+              <p>Power BI dashboards, chat assistants, and tailored recommendations.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact -->
+    <section id="impact" class="section fade scroll-animate">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Global Impact in Numbers</h2>
+          <p>Blue-gradient counters highlight how widely UpNext AI monitors labor markets.</p>
+        </div>
+        <div class="impact-grid">
+          {% set impact = [
+          {'label':'Cities Analyzed','value':120},
+          {'label':'Jobs Processed','value':540000},
+          {'label':'Skills Extracted','value':8600},
+          {'label':'Users Helped','value':22000}
+          ] %}
+          {% for stat in impact %}
+          <div class="impact-card card-hover">
+            <span class="counter" data-count="{{ stat.value }}">0</span>
+            <p>{{ stat.label }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partners" class="section fade section-gradient parallax-section scroll-animate"
+      data-parallax-speed="0.04">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Trusted by Innovators</h2>
+          <p>Leading universities, upskilling platforms, and talent teams collaborate with UpNext AI.</p>
+        </div>
+      </div>
+      <div class="partner-marquee">
+        <div class="partner-track">
+          {% set partner_logos = [
+          'https://logo.clearbit.com/ibm.com',
+          'https://logo.clearbit.com/meta.com',
+          'https://logo.clearbit.com/airbnb.com',
+          'https://logo.clearbit.com/linkedin.com',
+          'https://logo.clearbit.com/uber.com',
+          'https://logo.clearbit.com/adp.com',
+          'https://logo.clearbit.com/zoom.us'
+          ] %}
+          {% for _ in range(2) %}
+          {% for logo in partner_logos %}
+          <div class="partner-pill">
+            <img src="{{ logo }}" alt="Partner logo" />
+          </div>
+          {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section fade scroll-animate">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Top Learning Recommendations</h2>
+          <p>Animated skill tags spotlight the capabilities with the steepest demand curves.</p>
+        </div>
+        <div class="skill-wave">
+          {% set skill_tags = ["Python", "SQL", "Power BI", "Azure", "GenAI", "Prompt Engineering", "LLM Ops",
+          "Snowflake", "Data Storytelling"] %}
+          {% for skill in skill_tags %}
+          <span class="skill-pill">{{ skill }}</span>
+          {% endfor %}
+        </div>
+        <div class="skill-cta">
+          <a class="ghost-btn" href="#workflow">View Full Skill Path</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- About -->
+    <section id="about" class="section fade parallax-section section-gradient scroll-animate"
+      data-parallax-speed="0.15">
+      <div class="container split-grid">
+        <div class="split-text">
+          <h2>About the Platform</h2>
+          <p>
+            UpNext AI continuously reads regional job postings to understand which skills, tools, and certifications are
+            rising in demand. Machine learning models map these signals to occupations and regions to expose patterns
+            that
+            traditional labor reports miss.
+          </p>
+          <p>
+            NLP pipelines crawl thousands of descriptions to extract and normalize skill keywords, then cluster them
+            into
+            themes that employers care about—cloud platforms, analytics stacks, and industry-specific capabilities.
+          </p>
+          <p>
+            Organizations use these insights to align training investments with market expectations, while individuals
+            learn
+            which skills will keep them competitive in their geography.
+          </p>
+        </div>
+        <div class="split-media">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80"
+            alt="Data analytics workspace" />
+          <div class="icon-badges">
+            <div><i class="fa-solid fa-microchip"></i> AI Engines</div>
+            <div><i class="fa-solid fa-database"></i> Data Graphs</div>
+            <div><i class="fa-solid fa-chart-column"></i> BI Dashboards</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why It Matters -->
+    <section id="why" class="section tinted fade parallax-section scroll-animate" data-parallax-speed="0.1">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Why This Platform Matters</h2>
+          <p>
+            In a world of rapid skill changes, UpNext AI bridges the gap between education and employability by decoding
+            real-world job data.
+          </p>
+        </div>
+        <div class="card-grid triple">
+          <article class="feature-card card-hover">
+            <i class="fa-solid fa-signal"></i>
+            <h3>Real-Time Job Trend Tracking</h3>
+            <p>Daily refreshes expose hiring surges across cities, industries, and roles.</p>
+          </article>
+          <article class="feature-card card-hover">
+            <i class="fa-solid fa-brain"></i>
+            <h3>AI-Powered Skill Extraction</h3>
+            <p>NLP models recognize emerging skills and map them to standardized taxonomies.</p>
+          </article>
+          <article class="feature-card card-hover">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Data Visualization Insights</h3>
+            <p>Interactive dashboards surface salary shifts, talent gaps, and workforce readiness.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="workflow" class="section fade parallax-section section-gradient scroll-animate"
+      data-parallax-speed="0.12">
+      <div class="container">
+        <div class="section-heading">
+          <h2>How It Works</h2>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card card-hover">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+            <h3>Data Collection</h3>
+            <p>Gathers job listings from APIs, curated datasets, and employer portals.</p>
+          </article>
+          <article class="step-card card-hover">
+            <i class="fa-solid fa-brain"></i>
+            <h3>AI Processing</h3>
+            <p>Uses NLP to extract, standardize, and cluster skills from text content.</p>
+          </article>
+          <article class="step-card card-hover">
+            <i class="fa-solid fa-file-lines"></i>
+            <h3>Resume Analysis</h3>
+            <p>Benchmarks personal skillsets against regional hiring thresholds.</p>
+          </article>
+          <article class="step-card card-hover">
+            <i class="fa-solid fa-chart-pie"></i>
+            <h3>Insights &amp; Recommendations</h3>
+            <p>Generates visual dashboards and targeted learning suggestions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technologies -->
+    <section id="tech" class="section tinted fade parallax-section scroll-animate" data-parallax-speed="0.08">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Technologies Behind UpNext AI</h2>
+        </div>
+        <div class="tech-row">
+          {% set techs = ["Python", "Flask", "MySQL", "Power BI", "spaCy", "scikit-learn", "HTML5", "CSS3"] %}
+          {% for tech in techs %}
+          <span class="tech-pill">{{ tech }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Market Insights -->
+    <section id="insights" class="section fade parallax-section section-gradient scroll-animate"
+      data-parallax-speed="0.1">
+      <div class="container">
+        <div class="section-heading">
+          <h2>AI-Powered Job Market Insights</h2>
+          <p>Explore real-time skill demand and salary trends across industries.</p>
+        </div>
+        <div class="dashboard-grid">
+          <!-- Job Card 1 -->
+          <div class="job-card card-hover">
+            <div class="job-header">
+              <div class="job-icon" style="background: #e3f2fd; color: #1e88e5;">
+                <i class="fa-solid fa-code"></i>
+              </div>
+              <span class="badge trending">Trending</span>
+            </div>
+            <h3>AI Prompt Engineer</h3>
+            <p class="job-company">TechFlow Systems</p>
+            <div class="job-stats">
+              <div>
+                <span class="label">Avg. Salary</span>
+                <span class="value">$120k - $160k</span>
+              </div>
+              <div>
+                <span class="label">Growth</span>
+                <span class="value positive">+45% <i class="fa-solid fa-arrow-trend-up"></i></span>
+              </div>
+            </div>
+            <div class="job-tags">
+              <span>NLP</span>
+              <span>Python</span>
+              <span>LLM Ops</span>
+            </div>
+          </div>
+
+          <!-- Job Card 2 -->
+          <div class="job-card card-hover">
+            <div class="job-header">
+              <div class="job-icon" style="background: #e8f5e9; color: #43a047;">
+                <i class="fa-solid fa-database"></i>
+              </div>
+              <span class="badge hot">Hot</span>
+            </div>
+            <h3>Data Storyteller</h3>
+            <p class="job-company">Insight Analytics</p>
+            <div class="job-stats">
+              <div>
+                <span class="label">Avg. Salary</span>
+                <span class="value">$95k - $135k</span>
+              </div>
+              <div>
+                <span class="label">Growth</span>
+                <span class="value positive">+28% <i class="fa-solid fa-arrow-trend-up"></i></span>
+              </div>
+            </div>
+            <div class="job-tags">
+              <span>Power BI</span>
+              <span>SQL</span>
+              <span>Tableau</span>
+            </div>
+          </div>
+
+          <!-- Job Card 3 -->
+          <div class="job-card card-hover">
+            <div class="job-header">
+              <div class="job-icon" style="background: #fff3e0; color: #fb8c00;">
+                <i class="fa-solid fa-cloud"></i>
+              </div>
+              <span class="badge new">New</span>
+            </div>
+            <h3>Cloud Security Architect</h3>
+            <p class="job-company">CyberGuard Inc.</p>
+            <div class="job-stats">
+              <div>
+                <span class="label">Avg. Salary</span>
+                <span class="value">$140k - $190k</span>
+              </div>
+              <div>
+                <span class="label">Growth</span>
+                <span class="value positive">+32% <i class="fa-solid fa-arrow-trend-up"></i></span>
+              </div>
+            </div>
+            <div class="job-tags">
+              <span>Azure</span>
+              <span>Cybersecurity</span>
+              <span>DevSecOps</span>
+            </div>
+          </div>
+
+          <!-- Job Card 4 -->
+          <div class="job-card card-hover">
+            <div class="job-header">
+              <div class="job-icon" style="background: #f3e5f5; color: #8e24aa;">
+                <i class="fa-solid fa-robot"></i>
+              </div>
+              <span class="badge trending">Trending</span>
+            </div>
+            <h3>Machine Learning Ops</h3>
+            <p class="job-company">NeuralNet Corp</p>
+            <div class="job-stats">
+              <div>
+                <span class="label">Avg. Salary</span>
+                <span class="value">$130k - $175k</span>
+              </div>
+              <div>
+                <span class="label">Growth</span>
+                <span class="value positive">+38% <i class="fa-solid fa-arrow-trend-up"></i></span>
+              </div>
+            </div>
+            <div class="job-tags">
+              <span>TensorFlow</span>
+              <span>Docker</span>
+              <span>Kubernetes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Future Scope -->
+    <section id="future" class="section tinted fade parallax-section scroll-animate" data-parallax-speed="0.12">
+      <div class="container split-grid">
+        <div class="split-text">
+          <h2>The Future of Skill Intelligence</h2>
+          <p>UpNext AI is building predictive analytics that forecast which skills will surface in job descriptions
+            next.</p>
+          <p>Integrations with learning platforms will make it easy to trigger training paths directly from emerging
+            gaps.</p>
+          <p>Adaptive recommendations will personalize learning journeys using AI tutors and micro-credential
+            verification.</p>
+        </div>
+        <div class="split-media future-media">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"
+            alt="Futuristic data interface" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Companies -->
+    <section id="companies" class="section fade parallax-section scroll-animate" data-parallax-speed="0.05">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Leading Companies Driving AI Skill Demand</h2>
+        </div>
+        <div class="company-marquee">
+          <div class="marquee-track">
+            {% set companies = [
+            {"name":"Amazon","logo":"https://logo.clearbit.com/amazon.com"},
+            {"name":"Google","logo":"https://logo.clearbit.com/google.com"},
+            {"name":"Microsoft","logo":"https://logo.clearbit.com/microsoft.com"},
+            {"name":"IBM","logo":"https://logo.clearbit.com/ibm.com"},
+            {"name":"Oracle","logo":"https://logo.clearbit.com/oracle.com"},
+            {"name":"Meta","logo":"https://logo.clearbit.com/meta.com"},
+            {"name":"Netflix","logo":"https://logo.clearbit.com/netflix.com"},
+            {"name":"Adobe","logo":"https://logo.clearbit.com/adobe.com"},
+            {"name":"Intel","logo":"https://logo.clearbit.com/intel.com"},
+            {"name":"Accenture","logo":"https://logo.clearbit.com/accenture.com"},
+            {"name":"Deloitte","logo":"https://logo.clearbit.com/deloitte.com"},
+            {"name":"TCS","logo":"https://logo.clearbit.com/tcs.com"},
+            {"name":"Infosys","logo":"https://logo.clearbit.com/infosys.com"},
+            {"name":"Cisco","logo":"https://logo.clearbit.com/cisco.com"}
+            ] %}
+            {% for _ in range(2) %}
+            {% for company in companies %}
+            <div class="company-pill">
+              <img src="{{ company.logo }}" alt="{{ company.name }} logo" />
+              <span>{{ company.name }}</span>
+            </div>
+            {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <button class="chatbot-toggle" id="chatToggle" aria-label="Open UpNext AI assistant">
+    <i class="fa-solid fa-robot"></i>
+  </button>
+
+  <div class="chatbot-window" id="chatWindow">
+    <div class="chatbot-header">
+      <div>
+        <h4>UpNext AI Assistant 🤖</h4>
+        <small>Ask about job trends, skills, resumes</small>
+      </div>
+      <button id="chatClose" aria-label="Close chatbot">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="chatbot-body" id="chatBody">
+      <div class="chat-message bot">
+        Hi there! I’m your AI assistant. You can ask about job trends, skill insights, or how to analyze your resume.
+      </div>
+    </div>
+    <form class="chat-input" id="chatForm">
+      <input type="text" id="chatMessage" placeholder="Type your question..." autocomplete="off" />
+      <button type="submit" aria-label="Send">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
+  </div>
+
+  <footer class="site-footer">
+    <p>© 2025 UpNext AI — Empowering careers through data intelligence.</p>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin"></i>
+      </a>
+      <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="mailto:hello@upnext.ai" aria-label="Email">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='reload.js') }}"></script>
+  <script>
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+      navToggle.classList.toggle("active");
+    });
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById("themeToggle");
+    if (themeToggle) {
+      const body = document.body;
+      const themeIcon = themeToggle.querySelector("i");
+
+      // Check for saved theme preference or default to light mode
+      const currentTheme = localStorage.getItem("theme") || "light";
+      if (currentTheme === "dark") {
+        body.classList.add("dark-theme");
+        if (themeIcon) {
+          themeIcon.classList.remove("fa-moon");
+          themeIcon.classList.add("fa-sun");
+        }
+      }
+
+      // Toggle theme on button click
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-theme");
+
+        // Update icon
+        if (body.classList.contains("dark-theme")) {
+          if (themeIcon) {
+            themeIcon.classList.remove("fa-moon");
+            themeIcon.classList.add("fa-sun");
+          }
+          localStorage.setItem("theme", "dark");
+        } else {
+          if (themeIcon) {
+            themeIcon.classList.remove("fa-sun");
+            themeIcon.classList.add("fa-moon");
+          }
+          localStorage.setItem("theme", "light");
+        }
+      });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", e => {
+        const target = document.querySelector(link.getAttribute("href"));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth" });
+          navLinks.classList.remove("open");
+          navToggle.classList.remove("open");
+        }
+      });
+    });
+
+    const observer = new IntersectionObserver(
+      entries =>
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        }),
+      { threshold: 0.2 }
+    );
+
+    document.querySelectorAll(".scroll-animate").forEach(section => observer.observe(section));
+
+    const parallaxSections = document.querySelectorAll(".parallax-section");
+    const backgroundLayer = document.querySelector(".background-lines");
+    const updateParallax = () => {
+      const scrollY = window.pageYOffset;
+      parallaxSections.forEach(section => {
+        const speed = parseFloat(section.dataset.parallaxSpeed || 0.15);
+        const offset = (scrollY - section.offsetTop) * speed;
+        section.style.setProperty("--parallax-offset", `${-offset}px`);
+      });
+      if (backgroundLayer) {
+        backgroundLayer.style.setProperty("--bg-shift", `${scrollY * -0.04}px`);
+      }
+    };
+
+    updateParallax();
+    window.addEventListener("scroll", () => requestAnimationFrame(updateParallax));
+
+    // Chatbot interactions
+    const chatToggle = document.getElementById("chatToggle");
+    const chatWindow = document.getElementById("chatWindow");
+    const chatClose = document.getElementById("chatClose");
+    const chatBody = document.getElementById("chatBody");
+    const chatForm = document.getElementById("chatForm");
+    const chatMessage = document.getElementById("chatMessage");
+    const botReplies = [
+      "I’m monitoring local job feeds. Need insights for a specific city?",
+      "Cloud analytics, Power BI, and LLM operations are trending. Want a quick summary?",
+      "Upload your resume and I’ll benchmark it against real postings.",
+      "Need advice on closing a skill gap? I can recommend learning paths.",
+    ];
+
+    const toggleChat = forceOpen => {
+      const isOpen = typeof forceOpen === "boolean" ? forceOpen : !chatWindow.classList.contains("open");
+      chatWindow.classList[isOpen ? "add" : "remove"]("open");
+      chatToggle.classList[isOpen ? "add" : "remove"]("active");
+      if (isOpen) chatMessage.focus();
+    };
+
+    chatToggle.addEventListener("click", () => toggleChat());
+    chatClose.addEventListener("click", () => toggleChat(false));
+
+    const appendMessage = (text, sender = "user") => {
+      const bubble = document.createElement("div");
+      bubble.className = `chat-message ${sender}`;
+      bubble.textContent = text;
+      chatBody.appendChild(bubble);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    };
+
+    chatForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const text = chatMessage.value.trim();
+      if (!text) return;
+      appendMessage(text, "user");
+      chatMessage.value = "";
+      setTimeout(() => {
+        const reply = botReplies[Math.floor(Math.random() * botReplies.length)];
+        appendMessage(reply, "bot");
+      }, 700);
+    });
+
+    // Counters
+    const counters = document.querySelectorAll(".counter");
+    const counted = new Set();
+    const counterObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !counted.has(entry.target)) {
+            counted.add(entry.target);
+            const target = Number(entry.target.dataset.count || 0);
+            const duration = 2000;
+            const startTime = performance.now();
+            const step = now => {
+              const progress = Math.min((now - startTime) / duration, 1);
+              entry.target.textContent = Math.floor(progress * target).toLocaleString();
+              if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    counters.forEach(counter => counterObserver.observe(counter));
+
+  </script>
+</body>
+
+</html>

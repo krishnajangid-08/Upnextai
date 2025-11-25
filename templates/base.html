@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title or "AI Job Intelligence" }}</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='dark-theme.css') }}" />
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <!-- Text-only brand -->
+      <a href="{{ url_for('home') }}" class="brand">UpNext AI</a>
+
+      <!-- Navigation links -->
+      <nav class="nav-links" id="navLinks">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="#about">About</a>
+        <a href="#why">Why It Matters</a>
+        <a href="#how">How It Works</a>
+        <a href="#insights">Insights</a>
+      </nav>
+
+      <!-- Theme toggle button -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark or light theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <!-- Hamburger for mobile -->
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <script>
+    // Simple toggle for mobile menu
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    if (toggle && links) {
+      toggle.addEventListener('click', () => {
+        links.classList.toggle('open');
+        toggle.classList.toggle('active');
+      });
+    }
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById("themeToggle");
+    if (themeToggle) {
+      const body = document.body;
+      const themeIcon = themeToggle.querySelector("i");
+
+      // Check for saved theme preference or default to light mode
+      const currentTheme = localStorage.getItem("theme") || "light";
+      if (currentTheme === "dark") {
+        body.classList.add("dark-theme");
+        if (themeIcon) {
+          themeIcon.classList.remove("fa-moon");
+          themeIcon.classList.add("fa-sun");
+        }
+      }
+
+      // Toggle theme on button click
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-theme");
+
+        // Update icon
+        if (body.classList.contains("dark-theme")) {
+          if (themeIcon) {
+            themeIcon.classList.remove("fa-moon");
+            themeIcon.classList.add("fa-sun");
+          }
+          localStorage.setItem("theme", "dark");
+        } else {
+          if (themeIcon) {
+            themeIcon.classList.remove("fa-sun");
+            themeIcon.classList.add("fa-moon");
+          }
+          localStorage.setItem("theme", "light");
+        }
+      });
+    }
+  </script>
+  <main class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash">
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>Built with Flask · Local Job Market & Skill Intelligence Platform</p>
+    </div>
+  </footer>
+</body>
+
+</html>
