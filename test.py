@@ -10,11 +10,12 @@ import sys
 
 import requests
 
-# GEMINI_API_KEY = "AIzaSyAklw1RZICfoM6So8mebKRQE0j13k3YfeA"
+# GEMINI_API_KEY = "os.getenv... example"
 
 
-GEMINI_API_KEY = "AIzaSyAklw1RZICfoM6So8mebKRQE0j13k3YfeA"
-MODEL = "gemini-2.0-flash-001"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+MODEL = os.getenv("GEMINI_MODEL", "models/gemini-1.5-flash")
+print(f"Using model: {MODEL}")
 ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 
 
