@@ -8,12 +8,12 @@ import requests
 from flask import Flask, render_template, request, session, url_for, redirect
 from PyPDF2 import PdfReader
 
-app = Flask(__name__)
+app = Flask(__name__
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "upnext-dev-secret")
 
 # Gemini defaults (env vars still override)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-001")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "models/gemini-1.5-flash")
 GEMINI_ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 
 
