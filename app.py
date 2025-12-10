@@ -8,7 +8,7 @@ import requests
 from flask import Flask, render_template, request, session, url_for, redirect
 from PyPDF2 import PdfReader
 
-app = Flask(__name__
+app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "upnext-dev-secret")
 
 # Gemini defaults (env vars still override)
