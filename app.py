@@ -13,7 +13,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "upnext-dev-secret")
 
 # Gemini defaults (env vars still override)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-001")
 print(f"Using model: {GEMINI_MODEL}")
 GEMINI_ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 
@@ -199,10 +199,13 @@ def _call_gemini(prompt: str) -> str:
         raise RuntimeError("Gemini API key is not configured.")
 
     payload = {"contents": [{"parts": [{"text": prompt}]}]}
+    print("Using model:", GEMINI_MODEL)
     response = requests.post(
         GEMINI_ENDPOINT, params={"key": GEMINI_API_KEY}, json=payload, timeout=120
     )
-    response.raise_for_status()
+    if not response.ok:
+        print("GEMINI ERROR:", response.status_code, response.text)
+        response.raise_for_status()
     data = response.json()
     try:
         return data["candidates"][0]["content"]["parts"][0]["text"]
