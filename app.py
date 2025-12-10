@@ -13,7 +13,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "upnext-dev-secret")
 
 # Gemini defaults (env vars still override)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "models/gemini-1.5-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
 print(f"Using model: {GEMINI_MODEL}")
 GEMINI_ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 
